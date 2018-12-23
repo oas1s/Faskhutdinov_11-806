@@ -66,7 +66,7 @@ public class IntArrayList implements IntList {
             wasChangedOnLastIteration = false;
             for (int j = 0; j < count - 1 - i; j++) {
                 if (elements[j] > elements[j + 1]) {
-                    int buf = arr[j];
+                    int buf = elements[j];
                     elements[j] = elements[j + 1];
                     elements[j + 1] = buf;
                     wasChangedOnLastIteration = true;
@@ -91,13 +91,14 @@ public class IntArrayList implements IntList {
 
     @Override
     public void addAll(IntList list, int index) {
-        int newSize = (count + list.size() - offset);
+        int newcount = count;
+        int newSize = (count + list.size() - index);
         int[] newArray = new int[(int) (newSize * EXTENSION_COEF)];
         for(int i = 0; i < count; i++) {
             newArray[i] = elements[i];
         }
-        for(int i = offset; i < list.size(); i++) {
-            newArray[i+count] = list.get(i);
+        for(int i = index; i < list.size(); i++) {
+            newArray[newcount++] = list.get(i);
         }
         elements = newArray;
     }

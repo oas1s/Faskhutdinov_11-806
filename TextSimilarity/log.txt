@@ -1,0 +1,2 @@
+INFO 2018-12-27T20:40:03.420 Tokenized two texts
+INFO 2018-12-27T20:40:03.444 Tokenized two texts

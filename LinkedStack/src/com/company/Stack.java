@@ -22,9 +22,15 @@ public class Stack {
         if (isEmpty()) {
             throw new IllegalStateException("Stack is empty");
         }
-        char p = getTail().getValue();
-        getPreviousOfTail().setNext(null);
-        return p;
+        if (!head.hasNext()) {
+            char v = head.getValue();
+            head = null;
+            return v;
+        } else {
+            char p = getTail().getValue();
+            getPreviousOfTail().setNext(null);
+            return p;
+        }
     }
 
     public boolean isEmpty() {

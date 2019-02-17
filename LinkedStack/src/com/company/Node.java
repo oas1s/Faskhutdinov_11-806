@@ -23,4 +23,5 @@ public class Node {
     boolean hasNext() {
         return next!= null;
     }
+
 }

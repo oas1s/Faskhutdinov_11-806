@@ -13,8 +13,7 @@ public class Stack {
         b.setValue(c);
         if (getTail() == null) {
             head = b;
-        }
-        else {
+        } else {
             getTail().setNext(b);
         }
     }
@@ -23,9 +22,15 @@ public class Stack {
         if (isEmpty()) {
             throw new IllegalStateException("Stack is empty");
         }
-        char p = getTail().getValue();
-        getPreviousOfTail().setNext(null);
-        return p;
+        if (!head.hasNext()) {
+            char v = head.getValue();
+            head = null;
+            return v;
+        } else {
+            char p = getTail().getValue();
+            getPreviousOfTail().setNext(null);
+            return p;
+        }
     }
 
     public boolean isEmpty() {
@@ -37,7 +42,7 @@ public class Stack {
         if (head == null) {
             return null;
         }
-        while(current.hasNext()) {
+        while (current.hasNext()) {
             current = current.getNext();
         }
         return current;
@@ -46,7 +51,7 @@ public class Stack {
     private Node getPreviousOfTail() {
         Node current = head;
         if (head == null) {
-            return null;
+            return head;
         }
         while (current.hasNext()) {
             if (current.getNext().hasNext()) {
@@ -55,6 +60,6 @@ public class Stack {
                 return current;
             }
         }
-        return null;
+        return current;
     }
 }

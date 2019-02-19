@@ -5,6 +5,20 @@ public class Student {
     private String name;
     private String faculty;
 
+    @Override
+    public String toString() {
+        return "Student{" +
+                "age=" + age +
+                ", name='" + name + '\'' +
+                ", faculty='" + faculty + '\'' +
+                '}';
+    }
+
+    public Student(int age, String name, String faculty) {
+        this.age = age;
+        this.name = name;
+        this.faculty = faculty;
+    }
 
     public int getAge() {
         return age;

@@ -1,10 +1,10 @@
 package com.company;
 
-public class StackExample {
+public class StackExmpl {
     private char[] elements;
     private int n;
 
-    public StackExample(int capacity) {
+    public StackExmpl(int capacity) {
         elements = new char[capacity];
         n = 0;
     }

@@ -5,12 +5,19 @@ import java.util.Comparator;
 public class Group {
     Student[] students;
     int n = 0;
+    Comparator comparator;
+
+    public Group(int size,Comparator comparator) {
+        this.students = new Student[size];
+        this.comparator = comparator;
+    }
 
     public Group(int size) {
         this.students = new Student[size];
+        this.comparator = new ByAgeComparator();
     }
 
-    public void add(Student student, Comparator comparator){
+    public void add(Student student){
         int c = 0;
         if (students[c] == null) {
             students[c] = student;
@@ -30,10 +37,10 @@ public class Group {
         }
     }
 
-    public void add(Student student){
-        ByAgeComparator c = new ByAgeComparator();
-        add(student, c);
-    }
+//    public void add(Student student){
+//        ByAgeComparator c = new ByAgeComparator();
+//        add(student, c);
+//    }
 
     public void sort(Comparator comparator) {
         for (int i = students.length-1; i > 0; i--) {

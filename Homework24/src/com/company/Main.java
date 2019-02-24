@@ -4,7 +4,7 @@ import java.util.Comparator;
 
 public class Main {
     public static void main(String[] args) {
-        Comparator<Student> compareByName = new Comparator<>() {
+        Comparator<Student> compareByName = new Comparator<Student>() {
             @Override
             public int compare(Student o1, Student o2) {
                  return  o1.getName().compareTo(o2.getName());

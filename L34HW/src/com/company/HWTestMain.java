@@ -8,8 +8,8 @@ import java.util.List;
 
 public class HWTestMain {
     public static void main(String[] args) throws IllegalAccessException, InstantiationException, InvocationTargetException {
-        List lol = SuperBestAwesomeFramework.getManyWithCons(Student.class, 1, "John", 18);
-        System.out.println(lol.toString());
-        System.out.println(lol.size());
+        List testList = SuperBestAwesomeFramework.getManyWithCons(Student.class, 1, "John", 18);
+        System.out.println(testList.toString());
+        System.out.println(testList.size());
     }
 }

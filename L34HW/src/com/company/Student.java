@@ -3,14 +3,21 @@ package com.company;
 import javax.swing.text.html.HTMLDocument;
 
 public class Student {
+    private int someint;
     private int age;
     public String name;
-    private Iterable i;
 
     public Student(String name) {
         this.name = name;
     }
-    public Student(String name, Integer age) {
+
+    public Student(String name, int age, int someint) {
+        this.name = name;
+        this.age = age;
+        this.someint = someint;
+    }
+
+    public Student(String name, int age) {
         this.name = name;
         this.age = age;
     }
@@ -23,7 +30,8 @@ public class Student {
     @Override
     public String toString() {
         return "Student{" +
-                "age=" + age +
+                "someint=" + someint +
+                ", age=" + age +
                 ", name='" + name + '\'' +
                 '}';
     }

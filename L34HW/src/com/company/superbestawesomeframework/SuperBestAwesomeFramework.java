@@ -1,48 +1,68 @@
 package com.company.superbestawesomeframework;
 
+import com.company.Student;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class SuperBestAwesomeFramework {
-    static <T> List<T> getMany(Class<T> c, int count) {
-        List<T> l = new ArrayList<>();
-        try {
-            for (int i = 0; i < count; i++) {
-                T o = c.newInstance();
-                l.add(o);
-            }
-        } catch (InstantiationException | IllegalAccessException e) {
-            throw new IllegalStateException(e);
-        }
-        return l;
-    }
+        public static <T> List<T> getManyWithCons(Class<T> c, int count,Object... params) throws IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchMethodException {
+            int paramsLength = params.length;
 
-    //создает список экземпляров переданного класс (count штук)
-    //в качестве параметров конструктора передает params
-    //можно пользоваться getConstructors()
-    //можно пользоваться getParameterTypes() у конструктора
-    //можно вызывать getClass() у любого параметра из переданных params
-   public static <T> List<T> getManyWithCons(Class<T> c, int count, Object... params) throws IllegalAccessException, InvocationTargetException, InstantiationException {
-        ArrayList<T> newList = new ArrayList<>();
-        for (int i = 0; i <count; i++) {
-            Constructor[] Constructors = c.getConstructors();
-            Class[] ClassesOfParams = new Class[params.length];
-            for (int q = 0; q <params.length; q++) {
-                ClassesOfParams[q] = params[q].getClass();
+            Class[] classes = new Class[paramsLength];
+            for (int i = 0; i < paramsLength; i++) {
+                classes[i] = params[i].getClass();
             }
-            for (int j = 0; j <Constructors.length ; j++) {
-                if (Arrays.equals(Constructors[j].getParameterTypes(), ClassesOfParams)) {
-                    newList.add((T) Constructors[j].newInstance(params));
+            Class[] finalArr = new Class[paramsLength];
+            Constructor[] constructors = c.getConstructors();
+            for(Constructor constructor : constructors){
+                Class[] consParamTypes = constructor.getParameterTypes();
+                if(consParamTypes.length == classes.length){
+                    for (int i = 0; i < paramsLength; i++){
+                        if(classes[i].equals(consParamTypes[i])){
+                            finalArr[i] = consParamTypes[i];
+                        }
+                        else if(classes[i].equals(Byte.class)){
+                            finalArr[i] = byte.class;
+                        }
+                        else if(classes[i].equals(Short.class)){
+                            finalArr[i] = short.class;
+                        }
+                        else if(classes[i].equals(Integer.class)){
+                            finalArr[i] = int.class;
+                        }
+                        else if(classes[i].equals(Long.class)){
+                            finalArr[i] = long.class;
+                        }
+                        else if(classes[i].equals(Float.class)){
+                            finalArr[i] = float.class;
+                        }
+                        else if(classes[i].equals(Character.class)){
+                            finalArr[i] = char.class;
+                        }
+                        else if(classes[i].equals(Boolean.class)){
+                            finalArr[i] = boolean.class;
+                        }
+                        else {
+                            continue;
+                        }
+                    }
+                    break;
                 }
-//                System.out.println(Arrays.toString(ClassesOfParams));
-//                System.out.println(Arrays.toString(Constructors[j].getParameterTypes()));
+                else continue;
             }
-
+            List<T> l = new ArrayList<>();
+            try {
+                Constructor constructor = c.getConstructor(finalArr);
+                for (int i = 0; i < count; i++) {
+                    l.add((T) constructor.newInstance(params));
+                }
+            }
+            catch (IllegalArgumentException e){
+                throw new IllegalArgumentException("This class dont have this constructor");
+            }
+            return l;
         }
-        return newList;
     }
-
-}
